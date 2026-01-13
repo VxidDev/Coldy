@@ -3,7 +3,8 @@
 Fast, small, and endlessly tweakable console shell written entirely in C.
 
 ## RoadMap
-- [ ] Exit / Clear
+- [x] Exit / Echo
+- [ ] Clear / list (ls) 
 
 ## License 
 ### GPL 3.0
