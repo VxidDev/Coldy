@@ -21,6 +21,7 @@ extern Command Echo;
 extern Command Exit;
 extern Command Clear;
 extern Command List;
+extern Command Read;
 
 void InitBuiltInCommands();
 
