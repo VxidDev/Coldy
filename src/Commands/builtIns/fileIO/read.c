@@ -1,5 +1,3 @@
-#define _POSIX_C_SOURCE 200809L
-
 #include "../../../../include/Commands/builtIns/fileIO/read.h"
 #include "../../../../include/Commands/command.h"
 #include <stdio.h>

@@ -25,11 +25,14 @@ Coldy's prompt is built using *templates*.
 
 ## Commands
 
-| Command | Usage        |
-|---------|--------------|
-| echo    | `echo <text>`|
-| exit    | exit         |
-| clear   | clear        |   
+| Command | Usage                |
+|---------|----------------------|
+| echo    | `echo <text>`        |
+| exit    | exit                 |
+| clear   | clear                |
+| list    | `list <dir>`         |
+| read    | `read <file>`        |  
+| write   | `write <file> <text> |
 
 ## License 
 ### GPL 3.0

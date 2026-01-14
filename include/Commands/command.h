@@ -1,9 +1,8 @@
 #ifndef COMMAND_H
 #define COMMAND_H
 
-#include "builtIns/echo.h"
-#include "builtIns/exit.h"
 #include <stdlib.h>
+#include <stdbool.h>
 
 typedef struct Command { // Simple key-value pair
     const char* name;
@@ -17,11 +16,7 @@ typedef struct CmdData {
     size_t TokenizedInputCount; // e.g 3
 } CmdData;
 
-extern Command Echo;
-extern Command Exit;
-extern Command Clear;
-extern Command List;
-extern Command Read;
+extern Command Echo , Exit , Clear , List , Read , Write;
 
 void InitBuiltInCommands();
 

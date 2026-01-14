@@ -12,6 +12,7 @@ SRCS    = src/main.c \
 		  src/Commands/builtIns/clear.c \
 		  src/Commands/builtIns/fileIO/list.c \
 		  src/Commands/builtIns/fileIO/read.c \
+		  src/Commands/builtIns/fileIO/write.c \
 		  src/Commands/command.c \
 		  src/utils/getuserdata/gethost.c \
 		  src/utils/getuserdata/getuser.c \
