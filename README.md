@@ -13,7 +13,7 @@ Coldy's default config path is `~/.coldy.cfg`.
 
 | Flag  |   Usage                  | Example                                               |
 |-------|--------------------------|-------------------------------------------------------|
-|PROMPT | Set custom input prompt. | "PROMPT=%u@%h+>+" results in `vxid-dev@VxidDev > `|
+|PROMPT | Set custom input prompt. | "PROMPT=%U@%H+>+" results in `vxid-dev@VxidDev > `|
 
 ## Custom Prompt
 Coldy's prompt is built using *templates*.
