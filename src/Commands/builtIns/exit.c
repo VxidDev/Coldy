@@ -1,10 +1,13 @@
 #include "../../../include/Commands/builtIns/exit.h"
 #include "../../../include/Commands/command.h"
+#include "../../../include/coldy.h"
 
 #include <stdlib.h>
 
 bool CMD_exit(void* data) {
     (void)data;
+    free(HOSTNAME);
+    free(PROMPT);
     exit(0); // this would exit app anyways...
 }
 

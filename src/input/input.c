@@ -1,7 +1,9 @@
 #include "../../include/input/input.h"
+#include "../../include/coldy.h"
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 
 char* UserInput() {
     char* buff = calloc(64 , sizeof(char));
@@ -14,6 +16,21 @@ char* UserInput() {
     size_t buffSize = 64;
 
     int c;
+
+    size_t promptLen = strlen(PROMPT);
+    for (size_t i = 0; i < promptLen; i++) {
+        if (PROMPT[i] == '%' && i + 1 < promptLen) {
+            switch (PROMPT[++i]) {
+                case 'U': printf("%s" , USERNAME); break;
+                case 'H': printf("%s" , HOSTNAME); break;
+                default: printf("UNKNOWN"); 
+            }
+
+            continue;
+        }
+        if (PROMPT[i] == '+') PROMPT[i] = ' ';
+        putc(PROMPT[i] , stdout);
+    }
 
     while ((c = getc(stdin)) != EOF && c != '\n') {
         if (cPos + 1 >= buffSize) {

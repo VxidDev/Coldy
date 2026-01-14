@@ -8,5 +8,11 @@ extern Command Echo;
 
 extern size_t AmountOfBuiltIns;
 extern Command *BuiltInCommands[];
+void InitUserData();
+
+extern char* HOSTNAME;
+extern char* USERNAME;
+extern char* PROMPT;
+extern char* USERPATH;
 
 #endif

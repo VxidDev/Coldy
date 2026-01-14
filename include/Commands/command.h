@@ -19,6 +19,7 @@ typedef struct CmdData {
 
 extern Command Echo;
 extern Command Exit;
+extern Command Clear;
 
 void InitBuiltInCommands();
 

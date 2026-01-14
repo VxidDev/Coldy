@@ -9,7 +9,13 @@ SRCS    = src/main.c \
 		  src/parser/SplitString.c \
 		  src/Commands/builtIns/echo.c \
 		  src/Commands/builtIns/exit.c \
-		  src/Commands/command.c 
+		  src/Commands/builtIns/clear.c \
+		  src/Commands/command.c \
+		  src/utils/getuserdata/gethost.c \
+		  src/utils/getuserdata/getuser.c \
+		  src/utils/getuserdata/getuserpath.c \
+		  src/utils/getuserdata/getprompt.c \
+		  src/coldy.c
 
 OBJS    = $(SRCS:.c=.o)
 

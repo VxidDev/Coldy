@@ -1,15 +1,16 @@
 #include "../include/input/input.h"
 #include "../include/parser/parser.h"
 #include "../include/Commands/command.h"
+#include "../include/coldy.h"
 
-#include <stdio.h>
-#include <stdlib.h>
 #include <stdbool.h>
+#include <stdio.h>
 
 bool _RUNNING = true;
 
 int main() {
     InitBuiltInCommands();
+    InitUserData();
 
     while (_RUNNING) {
         char *userInput = UserInput();
@@ -23,6 +24,9 @@ int main() {
 
         free(userInput);
     } 
+
+    free(HOSTNAME);
+    free(PROMPT);
 
     return 0;
 }
