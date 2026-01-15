@@ -20,6 +20,7 @@ SRCS    = src/main.c \
 		  src/utils/getuserdata/getuser.c \
 		  src/utils/getuserdata/getuserpath.c \
 		  src/utils/getuserdata/getprompt.c \
+		  src/utils/getuserdata/getcurrdir.c \
 		  src/coldy.c
 
 OBJS    = $(SRCS:.c=.o)

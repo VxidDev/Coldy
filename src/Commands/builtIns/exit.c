@@ -8,6 +8,7 @@ bool CMD_exit(void* data) {
     (void)data;
     free(HOSTNAME);
     free(PROMPT);
+    free(CURRDIR);
     exit(0); // this would exit app anyways...
 }
 

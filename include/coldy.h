@@ -14,5 +14,6 @@ extern char* HOSTNAME;
 extern char* USERNAME;
 extern char* PROMPT;
 extern char* USERPATH;
+extern char* CURRDIR;
 
 #endif

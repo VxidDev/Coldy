@@ -9,5 +9,6 @@ char* GetUser();
 char* GetUserPath();
 char* GetHost();
 char* GetPrompt();
+char* GetCurrDir();
 
 #endif

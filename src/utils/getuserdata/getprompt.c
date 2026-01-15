@@ -10,9 +10,9 @@
 char* GetPrompt() {
     char *confPath = calloc(strlen(USERPATH) + 16 , sizeof(char));
     if (!confPath) {
-        char *prompt = malloc(sizeof(char) * 10);
+        char *prompt = malloc(sizeof(char) * strlen("%U@%H+%P+>+") + 1);
         if(!prompt) return NULL;
-        strcpy(prompt, "%U@%H+>+");
+        strcpy(prompt, "%U@%H+%P+>+");
         return prompt;
     }
 
@@ -22,9 +22,9 @@ char* GetPrompt() {
 
     if (!config) {
         free(confPath);
-        char *prompt = malloc(sizeof(char) * 10);
+        char *prompt = malloc(sizeof(char) * strlen("%U@%H+%P+>+") + 1);
         if(!prompt) return NULL;
-        strcpy(prompt, "%U@%H+>+");
+        strcpy(prompt, "%U@%H+%P+>+");
         return prompt;
     }
 
@@ -59,8 +59,8 @@ char* GetPrompt() {
     }
 
     if (!prompt) {
-        prompt = calloc(strlen("%U@%H+>+") + 1, sizeof(char));
-        if (prompt) strcpy(prompt, "%U@%H+>+");
+        prompt = calloc(strlen("%U@%H+%P+>+") + 1, sizeof(char));
+        if (prompt) strcpy(prompt, "%U@%H+%P+>+");
     }
 
     free(confPath);

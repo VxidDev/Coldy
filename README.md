@@ -5,7 +5,10 @@ Fast, small, and endlessly tweakable console shell written entirely in C.
 ## RoadMap
 - [x] Exit / Echo / Clear
 - [x] Customizable Prompt
-- [ ] read(cat) / append / write / ls
+- [x] read(cat) / append / write / ls
+- [ ] currdir / alias
+- [ ] re-directions (echo "test" > echo)
+- [ ] variables
 
 ## Config
 
@@ -13,7 +16,7 @@ Coldy's default config path is `~/.coldy.cfg`.
 
 | Flag  |   Usage                  | Example                                               |
 |-------|--------------------------|-------------------------------------------------------|
-|PROMPT | Set custom input prompt. | "PROMPT=%U@%H+>+" results in `vxid-dev@VxidDev > `|
+|PROMPT | Set custom input prompt. | "PROMPT=%U@%H+%P+>+" results in `vxid-dev@VxidDev ~ > `|
 
 ## Custom Prompt
 Coldy's prompt is built using *templates*.
@@ -22,6 +25,7 @@ Coldy's prompt is built using *templates*.
 |----------|----------------------------|
 | %U       | Adds username to prompt    |
 | %H       | Adds hostname to prompt    |
+| %P       | Adds current path to prompt|
 
 ## Commands
 

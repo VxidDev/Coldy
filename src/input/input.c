@@ -23,6 +23,7 @@ char* UserInput() {
             switch (PROMPT[++i]) {
                 case 'U': printf("%s" , USERNAME); break;
                 case 'H': printf("%s" , HOSTNAME); break;
+                case 'P': printf("%s" , CURRDIR); break;
                 default: printf("UNKNOWN"); 
             }
 
