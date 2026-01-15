@@ -32,7 +32,9 @@ Coldy's prompt is built using *templates*.
 | clear   | clear                |
 | list    | `list <dir>`         |
 | read    | `read <file>`        |  
-| write   | `write <file> <text> |
+| write   | `write <file> <text>`|
+| append  | `append <file> <text>`|
+| changedir| `changedir <path>`  |
 
 ## License 
 ### GPL 3.0

@@ -19,6 +19,8 @@ bool ParseInput(char *input) {
     size_t tokenCount = 0;
     while (tokens[tokenCount]) tokenCount++;
 
+    bool ExecutedCommand = false;
+
     for (size_t i = 0; i < AmountOfBuiltIns; i++) {
         if (strcmp(BuiltInCommands[i]->name , tokens[0]) == 0) {
             CmdData Data = {
@@ -29,9 +31,12 @@ bool ParseInput(char *input) {
             };
 
             BuiltInCommands[i]->cmd(&Data);
+            ExecutedCommand = true;
         }
     }
     
+    if (!ExecutedCommand) printf("\"%s\" not recognized as internal command.\n" , tokens[0]);
+
     free(tokens);
 
     return true;
