@@ -6,7 +6,7 @@ Fast, small, and endlessly tweakable console shell written entirely in C.
 - [x] Exit / Echo / Clear
 - [x] Customizable Prompt
 - [x] read(cat) / append / write / ls
-- [ ] currdir / alias
+- [x] currdir / alias
 - [ ] re-directions (echo "test" > echo)
 - [ ] variables
 
