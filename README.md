@@ -39,6 +39,8 @@ Coldy's prompt is built using *templates*.
 | write   | `write <file> <text>`|
 | append  | `append <file> <text>`|
 | changedir| `changedir <path>`  |
+| Alias   | `alias test=echo+hello+world`|
+| Currdir | `currdir`                    |
 
 ## License 
 ### GPL 3.0
