@@ -2,8 +2,8 @@
 
 #include <stdlib.h>
 
-size_t AmountOfBuiltIns = 9;
-Command *BuiltInCommands[9];
+size_t AmountOfBuiltIns = 10;
+Command *BuiltInCommands[10];
 
 void InitBuiltInCommands() {
     BuiltInCommands[0] = &Echo;
@@ -15,4 +15,5 @@ void InitBuiltInCommands() {
     BuiltInCommands[6] = &Append;
     BuiltInCommands[7] = &Changedir;
     BuiltInCommands[8] = &Alias;
+    BuiltInCommands[9] = &Currdir;
 }
