@@ -10,6 +10,7 @@ SRCS    = src/main.c \
 		  src/Commands/builtIns/echo.c \
 		  src/Commands/builtIns/exit.c \
 		  src/Commands/builtIns/clear.c \
+		  src/Commands/builtIns/alias.c \
 		  src/Commands/builtIns/fileIO/list.c \
 		  src/Commands/builtIns/fileIO/read.c \
 		  src/Commands/builtIns/fileIO/write.c \
