@@ -29,6 +29,7 @@ int main() {
 
     free(HOSTNAME);
     free(PROMPT);
+    FreeAliases();
 
     return 0;
 }

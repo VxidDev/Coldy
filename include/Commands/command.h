@@ -16,7 +16,7 @@ typedef struct CmdData {
     size_t TokenizedInputCount; // e.g 3
 } CmdData;
 
-extern Command Echo , Exit , Clear , List , Read , Write , Append , Changedir , Alias , Currdir;
+extern Command Echo , Exit , Clear , List , Read , Write , Append , Changedir , Alias , Currdir , Remove;
 
 void InitBuiltInCommands();
 
