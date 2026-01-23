@@ -39,7 +39,7 @@ bool ParseInput(char *input) {
     }
 
     for (size_t i = 0; i < ALIASCOUNT; i++) { // Check if in Aliases
-        if (strcmp(Aliases[i].name , tokens[0]) == 0) {
+        if (Aliases[i].inUse && strcmp(Aliases[i].name , tokens[0]) == 0) {
             char **cmd = calloc(8 , sizeof(char*));
             size_t MAXITEMS = 8;
             size_t USEDSPACE = 0;

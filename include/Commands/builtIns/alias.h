@@ -7,6 +7,7 @@
 typedef struct CmdAlias {
     char* name;
     char* cmd;
+    bool inUse;
 } CmdAlias;
 
 extern size_t CURRALIAS;

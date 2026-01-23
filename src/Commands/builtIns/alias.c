@@ -14,7 +14,7 @@ size_t MAXALIASES = 8;
 CmdAlias *Aliases = NULL;
 
 void FreeAliases(void) {
-    for (size_t i = 0; i < ALIASCOUNT; i++) {
+    for (size_t i = 0; (i < ALIASCOUNT && Aliases[i].inUse); i++) {
         free(Aliases[i].cmd);
         free(Aliases[i].name);
     }
@@ -26,7 +26,31 @@ bool CMD_alias(void* data) {
     CmdData* Data = (CmdData*)data;
 
     if (!Data->TokenizedInput[1]) {
-        printf("Usage: alias <cmdName>=<cmd>\n");
+        printf("Usage: alias [-rm <cmdName>] <cmdName>=<cmd>\n");
+        return true;
+    }
+
+    if (strcmp("-rm" , Data->TokenizedInput[1]) == 0) {
+        if (!Data->TokenizedInput[2]) {
+            printf("Please enter a removal target.\n");
+            return false;
+        }
+
+        bool AliasFound = false;
+
+        for (size_t i = 0; i < ALIASCOUNT; i++) {
+            if (strcmp(Aliases[i].name , Data->TokenizedInput[2]) == 0) {
+                free(Aliases[i].name);
+                free(Aliases[i].cmd);
+                Aliases[i].inUse = false;
+                AliasFound = true;
+            }
+        }
+
+        if (!AliasFound) {
+            printf("Target not found.\n");
+        }
+
         return true;
     }
 
@@ -71,7 +95,8 @@ bool CMD_alias(void* data) {
 
     CmdAlias alias = {
         strdup(aliasName),
-        strdup(aliasContent)
+        strdup(aliasContent),
+        true
     };
 
     // printf("Created alias var...\n");
@@ -169,7 +194,8 @@ void InitAliases() {
         if (!AliasExists) {
                 CmdAlias alias = {
                 strdup(name),
-                strdup(content)
+                strdup(content),
+                true
             };
 
             if (ALIASCOUNT >= MAXALIASES) {
