@@ -1,139 +1,163 @@
 #define _GNU_SOURCE
 
 #include "../../include/parser/parser.h"
-#include "../../include/coldy.h"
-#include "../../include/Commands/command.h"
 #include "../../include/Commands/builtIns/alias.h"
+#include "../../include/Commands/command.h"
+#include "../../include/coldy.h"
 
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
+#include <sys/types.h>
+#include <sys/wait.h>
 
 bool ParseInput(char *input) {
-    char** tokens = SplitString(input);
+  char **tokens = SplitString(input);
 
-    if (!tokens || !tokens[0]) {
-        if (tokens) {
-            free(tokens);
-        }
-        return false;
+  if (!tokens || !tokens[0]) {
+    if (tokens) {
+      free(tokens);
     }
+    return false;
+  }
 
-    size_t tokenCount = 0;
-    while (tokens[tokenCount]) tokenCount++;
+  size_t tokenCount = 0;
+  while (tokens[tokenCount])
+    tokenCount++;
 
-    bool ExecutedCommand = false;
+  bool ExecutedCommand = false;
 
-    for (size_t i = 0; i < AmountOfBuiltIns; i++) { // Check if in Built-Ins
-        if (strcmp(BuiltInCommands[i]->name , tokens[0]) == 0) {
-            CmdData Data = {
-                tokens,
-                input,
+  for (size_t i = 0; i < AmountOfBuiltIns; i++) { // Check if in Built-Ins
+    if (strcmp(BuiltInCommands[i]->name, tokens[0]) == 0) {
+      CmdData Data = {tokens, input,
 
-                tokenCount
-            };
+                      tokenCount};
 
-            BuiltInCommands[i]->cmd(&Data);
-            ExecutedCommand = true;
-        }
+      BuiltInCommands[i]->cmd(&Data);
+      ExecutedCommand = true;
     }
+  }
 
-    for (size_t i = 0; i < ALIASCOUNT; i++) { // Check if in Aliases
-        if (Aliases[i].inUse && strcmp(Aliases[i].name , tokens[0]) == 0) {
-            char **cmd = calloc(8 , sizeof(char*));
-            size_t MAXITEMS = 8;
-            size_t USEDSPACE = 0;
+  for (size_t i = 0; i < ALIASCOUNT; i++) { // Check if in Aliases
+    if (Aliases[i].inUse && strcmp(Aliases[i].name, tokens[0]) == 0) {
+      char **cmd = calloc(8, sizeof(char *));
+      size_t MAXITEMS = 8;
+      size_t USEDSPACE = 0;
 
-            char **AliasTokens = SplitString(Aliases[i].cmd);
+      char **AliasTokens = SplitString(Aliases[i].cmd);
 
-            for (size_t i = 0; AliasTokens[i]; i++) { // Add alias tokens.
-                if (USEDSPACE >= MAXITEMS) {
-                    MAXITEMS *= 2;
-                    void* ptr = realloc(cmd , MAXITEMS * sizeof(char));
+      for (size_t i = 0; AliasTokens[i]; i++) { // Add alias tokens.
+        if (USEDSPACE >= MAXITEMS) {
+          MAXITEMS *= 2;
+          void *ptr = realloc(cmd, MAXITEMS * sizeof(char));
 
-                    if (!ptr) {
-                        free(cmd);
-                        free(AliasTokens);
-                        free(tokens);
-                        printf("Failed to execute alias command.\n");
-                        
-                        return false;
-                    }
-
-                    cmd = ptr;
-                }
-
-                cmd[USEDSPACE++] = AliasTokens[i];
-            }
-
-            for (size_t i = 1; i < tokenCount; i++) { // add main command tokens.
-                if (USEDSPACE >= MAXITEMS) {
-                    MAXITEMS *= 2;
-                    void* ptr = realloc(cmd , MAXITEMS * sizeof(char*));
-
-                    if (!ptr) {
-                        free(cmd);
-                        free(AliasTokens);
-                        free(tokens);
-                        printf("Failed to execute alias command.\n");
-                        
-                        return false;
-                    }
-
-                    cmd = ptr;
-                }
-
-                cmd[USEDSPACE++] = tokens[i];
-            }
-
-            char* command = calloc(16 , sizeof(char));
-
-            size_t MAXCHARS = 16;
-            size_t USEDCHARS = 0;
-
-            for (size_t i = 0; i < USEDSPACE; i++) { // build a char* from char **.
-                size_t len = strlen(cmd[i]);
-                for (size_t j = 0; j < len; j++) {
-                    if (USEDCHARS >= MAXCHARS) {
-                        MAXCHARS *= 2;
-                        void* ptr = realloc(command , MAXCHARS * sizeof(char));
-
-                        if (!ptr) {
-                            free(cmd);
-                            free(AliasTokens);
-                            free(tokens);
-                            free(command);
-
-                            printf("Failed to execute alias command.\n");
-                            
-                            return false;
-                        }
-
-                        command = ptr;
-                    }
-
-                    command[USEDCHARS++] = cmd[i][j];
-                }
-
-                if (i != USEDSPACE - 1) command[USEDCHARS++] = ' ';
-            }
-
-            command[USEDCHARS] = '\0';
-
-            ParseInput(command);
-
+          if (!ptr) {
             free(cmd);
-            free(command);
             free(AliasTokens);
+            free(tokens);
+            printf("Failed to execute alias command.\n");
 
-            ExecutedCommand = true;
+            return false;
+          }
 
-            }
+          cmd = ptr;
         }
 
-    if (!ExecutedCommand) printf("\"%s\" not recognized as internal command or alias.\n" , tokens[0]);
+        cmd[USEDSPACE++] = AliasTokens[i];
+      }
 
-    free(tokens);
+      for (size_t i = 1; i < tokenCount; i++) { // add main command tokens.
+        if (USEDSPACE >= MAXITEMS) {
+          MAXITEMS *= 2;
+          void *ptr = realloc(cmd, MAXITEMS * sizeof(char *));
 
-    return true;
+          if (!ptr) {
+            free(cmd);
+            free(AliasTokens);
+            free(tokens);
+            printf("Failed to execute alias command.\n");
+
+            return false;
+          }
+
+          cmd = ptr;
+        }
+
+        cmd[USEDSPACE++] = tokens[i];
+      }
+
+      char *command = calloc(16, sizeof(char));
+
+      size_t MAXCHARS = 16;
+      size_t USEDCHARS = 0;
+
+      for (size_t i = 0; i < USEDSPACE; i++) { // build a char* from char **.
+        size_t len = strlen(cmd[i]);
+        for (size_t j = 0; j < len; j++) {
+          if (USEDCHARS >= MAXCHARS) {
+            MAXCHARS *= 2;
+            void *ptr = realloc(command, MAXCHARS * sizeof(char));
+
+            if (!ptr) {
+              free(cmd);
+              free(AliasTokens);
+              free(tokens);
+              free(command);
+
+              printf("Failed to execute alias command.\n"); // 12 level of
+                                                            // indentation is
+                                                            // crazy ;-;
+
+              return false;
+            }
+
+            command = ptr;
+          }
+
+          command[USEDCHARS++] = cmd[i][j];
+        }
+
+        if (i != USEDSPACE - 1)
+          command[USEDCHARS++] = ' ';
+      }
+
+      command[USEDCHARS] = '\0';
+
+      ParseInput(command);
+
+      free(cmd);
+      free(command);
+      free(AliasTokens);
+
+      ExecutedCommand = true;
+    }
+  }
+
+  if (!ExecutedCommand) {
+    pid_t proc = fork();
+
+    if (proc == -1) {
+      printf("Failed to create a process.\n");
+      free(tokens);
+      return false;
+    }
+
+    if (proc == 0) {
+      execve(tokens[0], tokens + 1, NULL);
+    } else {
+      int status;
+      waitpid(proc, &status, 0);
+
+      if (WIFEXITED(status) || WIFSIGNALED(status)) {
+        ExecutedCommand = true;
+      }
+    }
+  }
+
+  if (!ExecutedCommand)
+    printf("\"%s\" not recognized as internal command or alias.\n", tokens[0]);
+
+  free(tokens);
+
+  return true;
 }
